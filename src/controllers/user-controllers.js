@@ -1,4 +1,6 @@
+const { json } = require("body-parser");
 const UserServices = require(`../services/user-services`);
+const { sign } = require("jsonwebtoken");
 
 const userServices = new UserServices();
 
@@ -48,7 +50,28 @@ const destroy = async ( req, res ) => {
     }
 }
 
+const signIn = async ( req, res ) =>{
+    try {
+        const response = await userServices.signIn(req.body.email , req.body.password);
+        return res.status(200).json({
+            success:true,
+            message: "SuccessFully SignedIn",
+            data:response,
+            err: {},
+        });
+    } catch (error) {
+        console.log("Something Went wrong in the controller layer SignIn Function");
+        return res.status(500).json({
+            success: false,
+            message: "Something went wrong in Controller SignIn Process",  
+            data: {},
+            err: error,
+        })
+    }
+}
+
 module.exports = {
     create,
-    destroy
+    destroy,
+    signIn,
 }
