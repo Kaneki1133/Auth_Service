@@ -1,6 +1,4 @@
-const { json } = require("body-parser");
 const UserServices = require(`../services/user-services`);
-const { sign } = require("jsonwebtoken");
 
 const userServices = new UserServices();
 
