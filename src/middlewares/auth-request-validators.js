@@ -11,6 +11,19 @@ const validateUserAuth = (req , res , next) =>{
     next();
 }
 
+const validateIsAdminRequest = (req , res , next)=>{
+    if(!req.body.id){
+        return res.status(400).json({
+            success:false,
+            message: " Please Send the userId to Check Role",
+            data: {},
+            err:"userId is Missing from request body"
+        });
+    }
+    next();
+}
+
 module.exports = {
-    validateUserAuth
+    validateUserAuth,
+    validateIsAdminRequest
 }

@@ -91,9 +91,30 @@ const isAuthenticated = async ( req, res ) =>{
     }
 }
 
+const isAdmin = async ( req , res ) =>{
+    try {
+        const response = await userServices.isAdmin(req.body.id);
+        return res.status(200).json({
+            data: response,
+            success: true,
+            message: "The User has ADMIN Privileges",
+            err: {},
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            message:"Something Went Wrong While Checking isAdmin From Controller",
+            data:{},
+            success: false,
+            err: error
+        });
+    }
+}
+
 module.exports = {
     create,
     destroy,
     signIn,
     isAuthenticated,
+    isAdmin
 }
