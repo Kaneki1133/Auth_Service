@@ -93,7 +93,8 @@ class UserServices{
                 throw {error:'Invalid Token'};
             }
 
-            const user = await this.userRepository.getById(response.id);
+            // if the user Deleted account but the token is still valid
+            const user = await this.userRepository.getById(response.id);        
             if(!user){
                 throw {error:'No User With the corresponding token Exist'};
             }
