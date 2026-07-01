@@ -8,7 +8,6 @@ const create = async (req , res) => {
             email: req.body.email,
             password: req.body.password
         });
-
         return res.status(201).json({
             success:true,
             message:"SuccessFully Created a new User",
@@ -18,11 +17,11 @@ const create = async (req , res) => {
     } catch (error) {
         console.log("Something went wrong in the controller layer");
         console.log(error);
-        return res.status(500).json({
+        return res.status(error.statusCodes).json({
             success: false,
-            message: "Something Went Wrong",
+            message: error.message,
             data: {},
-            err : error,
+            err : error.explanation,
         })
     }
 }
@@ -59,11 +58,11 @@ const signIn = async ( req, res ) =>{
         });
     } catch (error) {
         console.log("Something Went wrong in the controller layer SignIn Function");
-        return res.status(500).json({
+        return res.status(error.statusCodes).json({
             success: false,
-            message: "Something went wrong in Controller SignIn Process",  
+            message: error.message,  
             data: {},
-            err: error,
+            err: error.explanation,
         })
     }
 }
